@@ -1,0 +1,192 @@
+{
+    'statusCode': 0, 
+    'itemInfo': {
+        'itemStruct': {
+            'id': '6851671878424169733', 
+            'desc': '#rn #nurse #psych #hospitallife #fyp', 
+            'createTime': 1595279176, 
+            'video': {
+                'id': 'awesome', 
+                'height': 1024, 
+                'width': 576, 
+                'duration': 8, 
+                'ratio': '720p', 
+                'cover': 'https://p16-sign-va.tiktokcdn.com/obj/tos-maliva-p-0068/6c45be20dac74b0eb35fee4af6f94e82?x-expires=1598061600&x-signature=4DyI%2Fq0X1rm2W7KQSPQpi%2FNz1SI%3D', 
+                'originCover': 'https://p16-sign-va.tiktokcdn.com/obj/tos-maliva-p-0068/09efcbf02f0147e3a5a561e5bfec8f5c_1595279177?x-expires=1598061600&x-signature=T%2FrLgGGLqOKXUckDlN56%2BuFIVMo%3D', 
+                'dynamicCover': 'https://p16-sign-va.tiktokcdn.com/obj/tos-maliva-p-0068/ca6de05a349f4fbda1d7436741256b00_1595279178?x-expires=1598061600&x-signature=chBFvmu16zRbNM33R6MPY8EGnNw%3D', 
+                'playAddr': 'https://v16m.tiktokcdn.com/d4f9b6f6e9bdab37d4ff071545ed5233/5f407f4d/video/tos/useast2a/tos-useast2a-pve-0068/e409a98639ec4751b1d3469f955d3cb1/?a=1233&br=1946&bt=973&cr=0&cs=0&dr=0&ds=3&er=&l=202008200213320101890710712E0039DE&lr=tiktok_m&mime_type=video_mp4&qs=0&rc=anI7bnJpbDUzdjMzNzczM0ApPGc7NTZmZDxkNzhmaTQ2N2cxL2s0ZWsxYl9fLS00MTZzcy8zMjJiMDQwL2JjX2M1Ly06Yw%3D%3D&vl=&vr=', 
+                'downloadAddr': 'https://v16m.tiktokcdn.com/d4f9b6f6e9bdab37d4ff071545ed5233/5f407f4d/video/tos/useast2a/tos-useast2a-pve-0068/e409a98639ec4751b1d3469f955d3cb1/?a=1233&br=1946&bt=973&cr=0&cs=0&dr=0&ds=3&er=&l=202008200213320101890710712E0039DE&lr=tiktok_m&mime_type=video_mp4&qs=0&rc=anI7bnJpbDUzdjMzNzczM0ApPGc7NTZmZDxkNzhmaTQ2N2cxL2s0ZWsxYl9fLS00MTZzcy8zMjJiMDQwL2JjX2M1Ly06Yw%3D%3D&vl=&vr=', 
+                'shareCover': ['', 'https://p16-sign-va.tiktokcdn.com/tos-maliva-p-0068/09efcbf02f0147e3a5a561e5bfec8f5c_1595279177~tplv-tiktok-play.jpeg?x-expires=1598061600&x-signature=OEQD0nVjJMIOC72rEoJkrnKdzwk%3D', 'https://p16-sign-va.tiktokcdn.com/tos-maliva-p-0068/09efcbf02f0147e3a5a561e5bfec8f5c_1595279177~tplv-tiktok-play2.jpeg?x-expires=1598061600&x-signature=rQTVKaG6CrhHgK9s0LaZyfMLTa4%3D']
+            }, 
+            'author': {
+                'id': '6806417961999762437', 
+                'uniqueId': 'dr_nurse', 
+                'nickname': 'user4907932744171', 
+                'avatarThumb': 'https://p16-amd-va.tiktokcdn.com/img/musically-maliva-obj/1664950905985030~c5_100x100.jpeg', 
+                'avatarMedium': 'https://p16-amd-va.tiktokcdn.com/img/musically-maliva-obj/1664950905985030~c5_720x720.jpeg', 
+                'avatarLarger': 'https://p16-amd-va.tiktokcdn.com/img/musically-maliva-obj/1664950905985030~c5_1080x1080.jpeg', 
+                'signature': '😷RN. 📚Grad student. 📍GA—>TN', 
+                'verified': False, 
+                'secUid': 'MS4wLjABAAAAL8OZ_30vcGujiVIYbVyz1P9dZgEgsNl_cjJyTh2n2ZoA0P0XB4_qPYEZCzkbFa6L', 
+                'secret': False, 
+                'relation': 0, 
+                'openFavorite': False
+            }, 
+            'music': {
+                'id': '6781056220997389061', 
+                'title': 'som original', 
+                'playUrl': 'https://p16-va-tiktok.ibyteimg.com/obj/musically-maliva-obj/1655532323400757.mp3', 
+                'coverThumb': 'https://p16-amd-va.tiktokcdn.com/img/musically-maliva-obj/1653652861791238~c5_100x100.jpeg', 
+                'coverMedium': 'https://p16-amd-va.tiktokcdn.com/img/musically-maliva-obj/1653652861791238~c5_720x720.jpeg', 
+                'coverLarge': 'https://p16-amd-va.tiktokcdn.com/img/musically-maliva-obj/1653652861791238~c5_1080x1080.jpeg', 
+                'authorName': 'owuant', 
+                'original': True
+            }, 
+            'challenges': [
+                {
+                    'id': '48765', 
+                    'title': 'rn', 
+                    'desc': '', 
+                    'profileThumb': '', 
+                    'profileMedium': '', 
+                    'profileLarger': '', 
+                    'coverThumb': '', 
+                    'coverMedium': '', 
+                    'coverLarger': '', 
+                    'isCommerce': False
+                }, 
+                {
+                    'id': '175291', 
+                    'title': 'nurse', 
+                    'desc': '', 
+                    'profileThumb': '', 
+                    'profileMedium': '', 
+                    'profileLarger': '', 
+                    'coverThumb': '', 
+                    'coverMedium': '', 
+                    'coverLarger': '', 
+                    'isCommerce': False
+                }, 
+                {
+                    'id': '87585', 
+                    'title': 'psych', 
+                    'desc': '', 
+                    'profileThumb': '', 
+                    'profileMedium': '', 
+                    'profileLarger': '', 
+                    'coverThumb': '', 
+                    'coverMedium': '', 
+                    'coverLarger': '', 
+                    'isCommerce': False
+                }, 
+                {
+                    'id': '444861', 
+                    'title': 'hospitallife', 
+                    'desc': '', 
+                    'profileThumb': '', 
+                    'profileMedium': '', 
+                    'profileLarger': '', 
+                    'coverThumb': '', 
+                    'coverMedium': '', 
+                    'coverLarger': '', 
+                    'isCommerce': False
+                }, 
+                {
+                    'id': '229207', 
+                    'title': 'fyp', 
+                    'desc': '', 
+                    'profileThumb': '', 
+                    'profileMedium': '', 
+                    'profileLarger': '', 
+                    'coverThumb': '', 
+                    'coverMedium': '', 
+                    'coverLarger': '', 
+                    'isCommerce': False
+               }
+            ], 
+            'stats': {
+                'diggCount': 489600, 
+                'shareCount': 65700, 
+                'commentCount': 6648, 
+                'playCount': 12300000
+            }, 
+            'isActivityItem': False, 
+            'duetInfo': {
+                'duetFromId': '0'
+            }, 
+            'textExtra': [
+                {
+                    'awemeId': '', 
+                    'start': 0, 
+                    'end': 3, 
+                    'hashtagName': 'rn', 
+                    'hashtagId': '', 
+                    'type': 1, 
+                    'userId': '', 
+                    'isCommerce': False, 
+                    'userUniqueId': '', 
+                    'secUid': ''
+                }, 
+                {
+                    'awemeId': '', 
+                    'start': 4, 
+                    'end': 10, 
+                    'hashtagName': 'nurse', 
+                    'hashtagId': '', 
+                    'type': 1, 
+                    'userId': '', 
+                    'isCommerce': False, 
+                    'userUniqueId': '', 
+                    'secUid': ''
+                }, 
+                {
+                    'awemeId': '', 
+                    'start': 11, 
+                    'end': 17, 
+                    'hashtagName': 'psych', 
+                    'hashtagId': '', 
+                    'type': 1, 
+                    'userId': '', 
+                    'isCommerce': False, 
+                    'userUniqueId': '', 
+                    'secUid': ''
+                }, 
+                {
+                    'awemeId': '', 
+                    'start': 18, 
+                    'end': 31, 
+                    'hashtagName': 'hospitallife', 
+                    'hashtagId': '', 
+                    'type': 1, 
+                    'userId': '', 
+                    'isCommerce': False, 
+                    'userUniqueId': '', 
+                    'secUid': ''
+                }, 
+                {
+                    'awemeId': '', 
+                    'start': 32, 
+                    'end': 36, 
+                    'hashtagName': 'fyp', 
+                    'hashtagId': '', 
+                    'type': 1, 
+                    'userId': '', 
+                    'isCommerce': False, 
+                    'userUniqueId': '', 
+                    'secUid': ''
+                }
+            ], 
+            'secret': False, 
+            'forFriend': False, 
+            'digged': False, 
+            'itemCommentStatus': 0, 
+            'showNotPass': False, 
+            'vl1': False, 
+            'itemMute': False
+        }, 
+        'shareMeta': {
+            'title': 'user4907932744171 on TikTok', 
+            'desc': '#rn #nurse #psych #hospitallife #fyp'
+        }
+    }
+}

@@ -191,21 +191,21 @@ def main():
   args = parser.parse_args()
   func = FUNCTION_MAP[args.function]
   if args.function == 'getTrendingTikToks' or args.function == 'getTrendingHashtags' or args.function == 'getTrendingMusic':
-    func(args.n or default_n, args.printOutput or default_print)
+    return func(args.n or default_n, args.printOutput or default_print)
   if args.function == 'getHashtagInfo':
     if not args.hashtag:
       print("No hashtag given")
       return
-    func(args.hashtag, args.printOutput or default_print)
+    return func(args.hashtag, args.printOutput or default_print)
   if args.function == 'getUserInfo':
     if not args.username:
       print("No username given")
       return
-    func(args.username, args.printOutput or default_print)
+    return func(args.username, args.printOutput or default_print)
   if args.function == 'getUserLikedByUsername':
     if not args.username:
       print("No username given")
       return
-    func(args.username, args.n or default_n, args.printOutput or default_print)
+    return func(args.username, args.n or default_n, args.printOutput or default_print)
 
 main()

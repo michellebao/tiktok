@@ -3,6 +3,7 @@ import argparse
 from TikTokApi import TikTokApi
 import inspect
 import json
+from datetime import datetime
 
 api = TikTokApi(debug=True, executablePath="/usr/lib/chromium-browser/chromium-browser")
 pp = pprint.PrettyPrinter()
@@ -48,6 +49,34 @@ def getTrendingMusic(n:int = 10, printOutput:bool = False) -> dict: # returns in
   return lst
 
 #### Functions for Individual Objects ####
+
+def byUsername(usernames, n:int = 10, printOutput:bool = False) -> dict:
+  lst = []
+  for username in usernames:
+    for tiktok in api.byUsername(username, count=n):
+      lst.append(processTikTokObject(tiktok))
+  if printOutput:
+    pp.pprint(lst)
+  return lst
+
+def byHashtag(hashtags, n:int = 10, printOutput:bool = False) -> dict:
+  lst = []
+  for hashtag in hashtags:
+    for tiktok in api.byHashtag(hashtag, count=n):
+      resp = {}
+      resp['id'] = tiktok.get('itemInfos', {}).get('id')
+      resp['desc'] = tiktok.get('desc')
+      resp['createTime'] = datetime.fromtimestamp(int(tiktok.get('itemInfos', {}).get('createTime'))).isoformat()
+      resp['playAddr'] = tiktok.get('itemInfos', {}).get('playAddr')
+      resp['username'] = tiktok.get('itemInfos', {}).get('uniqueId')
+      resp['diggCount'] = tiktok.get('itemInfos', {}).get('diggCount')
+      resp['shareCount'] = tiktok.get('itemInfos', {}).get('shareCount')
+      resp['commentCount'] = tiktok.get('itemInfos', {}).get('commentCount')
+      resp['playCount'] = tiktok.get('itemInfos', {}).get('playCount')
+      lst.append(resp)
+  if printOutput:
+    pp.pprint(lst)
+  return lst
 
 def getHashtagInfo(hashtags, printOutput:bool = False) -> dict: # returns info for specific hashtag (exclude # symbol from string)
   lst = []
@@ -151,7 +180,7 @@ def processTikTokObject(tiktok:dict) -> dict:
   resp = {}
   resp['id'] = id
   resp['desc'] = tiktok.get('desc')
-  resp['createTime'] = tiktok.get('createTime')
+  resp['createTime'] = datetime.fromtimestamp(int(tiktok.get('createTime'))).isoformat()
   resp['playAddr'] = tiktok.get('video', {}).get('playAddr')
   resp['username'] = tiktok.get('author', {}).get('uniqueId')
   resp['diggCount'] = tiktok.get('stats', {}).get('diggCount')
@@ -196,7 +225,9 @@ def main():
     'getUserLikedByUsername': getUserLikedByUsername,
     'getSuggestedUsers': getSuggestedUsers,
     'getSuggestedHashtags': getSuggestedHashtags,
-    'getSuggestedMusic': getSuggestedMusic
+    'getSuggestedMusic': getSuggestedMusic,
+    'byUsername': byUsername,
+    'byHashtag': byHashtag
   }
   parser = argparse.ArgumentParser()
   parser.add_argument("--function", choices = FUNCTION_MAP.keys(), required=True)
@@ -234,7 +265,17 @@ def main():
       print("No username given")
       return
     out = func(args.username, args.n or default_n, args.printOutput or default_print)
-  
+  if args.function == 'byUsername':
+    if not args.username:
+      print('No username given')
+      return
+    out = func(args.username, args.n or default_n, args.printOutput or default_print)
+  if args.function == 'byHashtag':
+    if not args.hashtag:
+      print('No hashtag given')
+      return
+    out = func(args.hashtag, args.n or default_n, args.printOutput or default_print)
+
   with open(args.outFile, 'w') as outfile:
     json.dump(out, outfile)
 

@@ -4,20 +4,24 @@ from TikTokApi import TikTokApi
 import inspect
 import json
 from datetime import datetime
+import requests
+import os
 
 api = TikTokApi(debug=True, executablePath="/usr/lib/chromium-browser/chromium-browser")
 pp = pprint.PrettyPrinter()
 
 #### Aggregate Functions ####
 
-def getTrendingTikToks(n:int = 10, printOutput:bool = False) -> dict: # returns info on n trending tiktoks
+def getTrendingTikToks(n:int = 10, printOutput:bool = False, download:bool = False) -> dict: # returns info on n trending tiktoks
   trendingTiktoks = api.trending(count=n)
   lst = []
   for tiktok in trendingTiktoks:
-      resp = processTikTokObject(tiktok)
-      lst.append(resp)
+    resp = processTikTokObject(tiktok)
+    lst.append(resp)
   if printOutput:
-      pp.pprint(lst)
+    pp.pprint(lst)
+  if download:
+    downloadTikToks(lst)
   return lst
 
 def getTrendingHashtags(n:int = 10, printOutput:bool = False) -> dict: # returns info on hashtags/challenges shown on side of trending page on desktop (up to 10)
@@ -50,16 +54,29 @@ def getTrendingMusic(n:int = 10, printOutput:bool = False) -> dict: # returns in
 
 #### Functions for Individual Objects ####
 
-def byUsername(usernames, n:int = 10, printOutput:bool = False) -> dict:
+def getTikTokByUrl(urls, printOutput:bool = False, download:bool = False):
+  lst = []
+  for url in urls:
+    tiktok = api.getTikTokByUrl(url)
+    lst.append(processTikTokObject(tiktok.get('itemInfo', {}).get('itemStruct', {})))
+  if printOutput:
+    pp.pprint(lst)
+  if download:
+    downloadTikToks(lst)
+  return lst
+
+def byUsername(usernames, n:int = 10, printOutput:bool = False, download:bool = False) -> dict:
   lst = []
   for username in usernames:
     for tiktok in api.byUsername(username, count=n):
       lst.append(processTikTokObject(tiktok))
   if printOutput:
     pp.pprint(lst)
+  if download:
+    downloadTikToks(lst)
   return lst
 
-def byHashtag(hashtags, n:int = 10, printOutput:bool = False) -> dict:
+def byHashtag(hashtags, n:int = 10, printOutput:bool = False, download:bool = False) -> dict:
   lst = []
   for hashtag in hashtags:
     for tiktok in api.byHashtag(hashtag, count=n):
@@ -76,6 +93,8 @@ def byHashtag(hashtags, n:int = 10, printOutput:bool = False) -> dict:
       lst.append(resp)
   if printOutput:
     pp.pprint(lst)
+  if download:
+    downloadTikToks(lst)
   return lst
 
 def getHashtagInfo(hashtags, printOutput:bool = False) -> dict: # returns info for specific hashtag (exclude # symbol from string)
@@ -119,7 +138,7 @@ def getUserInfo(usernames: list, printOutput:bool = False) -> dict: # returns in
         pp.pprint(lst)
   return lst
 
-def getUserLikedByUsername(username: str, n:int = 10, printOutput:bool = False) -> list: # returns list of given user's liked tiktoks (returns 0 if private list)
+def getUserLikedByUsername(username: str, n:int = 10, printOutput:bool = False, download:bool = False) -> list: # returns list of given user's liked tiktoks (returns 0 if private list)
   userId = usernameToUserId(username)
   obj = api.getUser(username)
   userInfo = obj.get('userInfo', {})
@@ -130,6 +149,8 @@ def getUserLikedByUsername(username: str, n:int = 10, printOutput:bool = False) 
       lst.append(resp)
   if printOutput:
       pp.pprint(lst)
+  if download:
+    downloadTikToks(lst)
   return lst
 
 def getSuggestedUsers(usernames:str, n:int = 10, crawl:bool = False, printOutput:bool = False) -> list: # returns list of suggested users given an account. 
@@ -139,9 +160,7 @@ def getSuggestedUsers(usernames:str, n:int = 10, crawl:bool = False, printOutput
     userId = usernameToUserId(username)
     suggested = api.getSuggestedUsersbyIDCrawler(count = n, startingId = userId)# if crawl else api.getSuggestedUsersbyID(count = count, userId = userId)
     for user in suggested:
-      # print(user)
       userN = user.get('subTitle')
-      # print(userN)
       if userN:
         userN = userN.replace('@', '')
         lst += getUserInfo([userN], printOutput)
@@ -205,6 +224,17 @@ def usernameToUserId(username: str) -> str:
   userId = userInfo.get('user', {}).get('id')
   return userId
 
+def downloadTikToks(tiktoks):
+  dirName = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+  for tiktok in tiktoks:
+    addr = tiktok['playAddr']
+    id = tiktok['id']
+    path = 'downloads/' + dirName + '/' + str(id) + '.mp4'
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    r = requests.get(addr, headers={'referer': 'https://www.tiktok.com/'})
+    open(path, 'wb').write(r.content)
+
+
 def main():
 # optional arguments:
 # -h, --help            show this help message and exit
@@ -227,7 +257,8 @@ def main():
     'getSuggestedHashtags': getSuggestedHashtags,
     'getSuggestedMusic': getSuggestedMusic,
     'byUsername': byUsername,
-    'byHashtag': byHashtag
+    'byHashtag': byHashtag,
+    'getTikTokByUrl': getTikTokByUrl
   }
   parser = argparse.ArgumentParser()
   parser.add_argument("--function", choices = FUNCTION_MAP.keys(), required=True)
@@ -235,6 +266,8 @@ def main():
   parser.add_argument("--printOutput", type=str, required=False)
   parser.add_argument("--hashtag", nargs='+', required=False)
   parser.add_argument("--username", nargs='+', required=False)
+  parser.add_argument("--url", nargs='+', required=False)
+  parser.add_argument("--download", type=bool, required=False)
   parser.add_argument("--outFile", type=str, required=False)
 
   default_n = 10
@@ -243,7 +276,9 @@ def main():
   args = parser.parse_args()
   func = FUNCTION_MAP[args.function]
   out = None
-  if args.function == 'getTrendingTikToks' or args.function == 'getTrendingHashtags' or args.function == 'getTrendingMusic':
+  if args.function == 'getTrendingTikToks':
+    out = func(args.n or default_n, args.printOutput or default_print, args.download)
+  if args.function == 'getTrendingHashtags' or args.function == 'getTrendingMusic':
     out = func(args.n or default_n, args.printOutput or default_print)
   if args.function == 'getHashtagInfo':
     if not args.hashtag:
@@ -259,7 +294,7 @@ def main():
     if not args.username:
       print("No username given")
       return
-    out = func(args.username, args.n or default_n, args.printOutput or default_print)
+    out = func(args.username, args.n or default_n, args.printOutput or default_print, args.download)
   if args.function == 'getSuggestedUsers' or args.function == 'getSuggestedHashtags' or args.function == 'getSuggestedMusic':
     if not args.username:
       print("No username given")
@@ -269,12 +304,17 @@ def main():
     if not args.username:
       print('No username given')
       return
-    out = func(args.username, args.n or default_n, args.printOutput or default_print)
+    out = func(args.username, args.n or default_n, args.printOutput or default_print, args.download)
   if args.function == 'byHashtag':
     if not args.hashtag:
       print('No hashtag given')
       return
-    out = func(args.hashtag, args.n or default_n, args.printOutput or default_print)
+    out = func(args.hashtag, args.n or default_n, args.printOutput or default_print, args.download)
+  if args.function == 'getTikTokByUrl':
+    if not args.url:
+      print('No url given')
+      return
+    out = func(args.url, args.printOutput or default_print, args.download)
 
   with open(args.outFile, 'w') as outfile:
     json.dump(out, outfile)

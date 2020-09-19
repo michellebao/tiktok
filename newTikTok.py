@@ -80,12 +80,16 @@ def byHashtag(hashtags, n:int = 10, printOutput:bool = False, download:bool = Fa
   lst = []
   for hashtag in hashtags:
     for tiktok in api.byHashtag(hashtag, count=n):
+      print(tiktok)
       resp = {}
       resp['id'] = tiktok.get('itemInfos', {}).get('id')
-      resp['desc'] = tiktok.get('desc')
+      resp['text'] = tiktok.get('itemInfos', {}).get('text')
       resp['createTime'] = datetime.fromtimestamp(int(tiktok.get('itemInfos', {}).get('createTime'))).isoformat()
-      resp['playAddr'] = tiktok.get('itemInfos', {}).get('playAddr')
-      resp['username'] = tiktok.get('itemInfos', {}).get('uniqueId')
+      resp['playAddr'] = tiktok.get('itemInfos', {}).get('video', {}).get('urls')
+      print(resp['playAddr'])
+      if resp['playAddr']:
+        resp['playAddr'] = resp['playAddr'][0]
+      resp['username'] = tiktok.get('authorInfos', {}).get('uniqueId')
       resp['diggCount'] = tiktok.get('itemInfos', {}).get('diggCount')
       resp['shareCount'] = tiktok.get('itemInfos', {}).get('shareCount')
       resp['commentCount'] = tiktok.get('itemInfos', {}).get('commentCount')
@@ -267,7 +271,7 @@ def main():
   parser.add_argument("--hashtag", nargs='+', required=False)
   parser.add_argument("--username", nargs='+', required=False)
   parser.add_argument("--url", nargs='+', required=False)
-  parser.add_argument("--download", type=bool, required=False)
+  parser.add_argument("--download", default=False, action='store_true')
   parser.add_argument("--outFile", type=str, required=False)
 
   default_n = 10

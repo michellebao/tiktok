@@ -233,7 +233,7 @@ def downloadTikToks(tiktoks):
   for tiktok in tiktoks:
     addr = tiktok['playAddr']
     id = tiktok['id']
-    path = 'downloads/' + dirName + '/' + str(id) + '.mp4'
+    path = 'downloadedTikToks/' + dirName + '/' + str(id) + '.mp4'
     os.makedirs(os.path.dirname(path), exist_ok=True)
     r = requests.get(addr, headers={'referer': 'https://www.tiktok.com/'})
     open(path, 'wb').write(r.content)

@@ -155,12 +155,11 @@ def getUserLikedByUsername(username: str, n:int = 10, printOutput:bool = False, 
     downloadTikToks(lst)
   return lst
 
-def getSuggestedUsers(usernames:str, n:int = 10, crawl:bool = False, printOutput:bool = False) -> list: # returns list of suggested users given an account. 
-  # if crawl is True, will return suggested users for given username's suggested users
+def getSuggestedUsers(usernames:str, n:int = 10, printOutput:bool = False) -> list: # returns list of suggested users given an account. 
   lst = []
   for username in usernames:
     userId = usernameToUserId(username)
-    suggested = api.getSuggestedUsersbyIDCrawler(count = n, startingId = userId)# if crawl else api.getSuggestedUsersbyID(count = count, userId = userId)
+    suggested = api.getSuggestedUsersbyID(count = n, userId = userId)
     for user in suggested:
       userN = user.get('subTitle')
       if userN:
@@ -168,12 +167,11 @@ def getSuggestedUsers(usernames:str, n:int = 10, crawl:bool = False, printOutput
         lst += getUserInfo([userN], printOutput)
   return lst
 
-def getSuggestedHashtags(usernames:str, n:int = 10, crawl:bool = False, printOutput:bool = False) -> list: # returns list of suggested hashtags given an account
-  # if crawl is True, will return suggested hashtags for given username's suggested users
+def getSuggestedHashtags(usernames:str, n:int = 10, printOutput:bool = False) -> list: # returns list of suggested hashtags given an account
   lst = []
   for username in usernames:
     userId = usernameToUserId(username)
-    suggested = api.getSuggestedHashtagsbyIDCrawler(count = n, startingId = userId) #if crawl else api.getSuggestedHashtagsbyID(count = count, userId = userId)
+    suggested = api.getSuggestedHashtagsbyID(count=n, userId = userId)
     for hashtag in suggested:
       hashStr = hashtag.get('title')
       if hashStr:
@@ -181,12 +179,11 @@ def getSuggestedHashtags(usernames:str, n:int = 10, crawl:bool = False, printOut
         lst += getHashtagInfo([hashStr], printOutput)
   return lst
 
-def getSuggestedMusic(usernames:str, n:int = 10, crawl:bool = False, printOutput:bool = False) -> list: # returns list of suggested music given an account
-  # if crawl is True, will return suggested music for given username's suggested users
+def getSuggestedMusic(usernames:str, n:int = 10, printOutput:bool = False) -> list: # returns list of suggested music given an account
   lst = []
   for username in usernames:
     userId = usernameToUserId(username)
-    suggested = api.getSuggestedMusicIDCrawler(count = n, startingId = userId) #if crawl else api.getSuggestedMusicbyID(count = count, userId = userId)
+    suggested = api.getSuggestedMusicIDCrawler(count = n, userId = userId)
     for music in suggested:
         resp = processMusicObject(music)
         lst.append(resp)
@@ -257,7 +254,7 @@ def main():
     'getUserLikedByUsername': getUserLikedByUsername,
     'getSuggestedUsers': getSuggestedUsers,
     'getSuggestedHashtags': getSuggestedHashtags,
-    'getSuggestedMusic': getSuggestedMusic,
+    #'getSuggestedMusic': getSuggestedMusic,
     'byUsername': byUsername,
     'byHashtag': byHashtag,
     'getTikTokByUrl': getTikTokByUrl
@@ -297,7 +294,12 @@ def main():
       print("No username given")
       return
     out = func(args.username, args.n or default_n, args.printOutput or default_print, args.download)
-  if args.function == 'getSuggestedUsers' or args.function == 'getSuggestedHashtags' or args.function == 'getSuggestedMusic':
+  if args.function == 'getSuggestedUsers':
+    if not args.username:
+      print("No username given")
+      return
+    out = func(args.username, args.n or default_n, args.printOutput or default_print)
+  if args.function == 'getSuggestedHashtags':
     if not args.username:
       print("No username given")
       return

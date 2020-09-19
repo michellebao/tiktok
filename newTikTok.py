@@ -80,13 +80,11 @@ def byHashtag(hashtags, n:int = 10, printOutput:bool = False, download:bool = Fa
   lst = []
   for hashtag in hashtags:
     for tiktok in api.byHashtag(hashtag, count=n):
-      print(tiktok)
       resp = {}
       resp['id'] = tiktok.get('itemInfos', {}).get('id')
       resp['text'] = tiktok.get('itemInfos', {}).get('text')
       resp['createTime'] = datetime.fromtimestamp(int(tiktok.get('itemInfos', {}).get('createTime'))).isoformat()
       resp['playAddr'] = tiktok.get('itemInfos', {}).get('video', {}).get('urls')
-      print(resp['playAddr'])
       if resp['playAddr']:
         resp['playAddr'] = resp['playAddr'][0]
       resp['username'] = tiktok.get('authorInfos', {}).get('uniqueId')

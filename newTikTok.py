@@ -110,7 +110,7 @@ def getHashtagInfo(hashtags, printOutput:bool = False) -> dict: # returns info f
     hashtagInfo = obj.get('challengeInfo', {})
     resp['id'] = hashtagInfo.get('challenge', {}).get('id') 
     resp['title'] = hashtagInfo.get('challenge', {}).get('title') 
-    resp['desc'] = hashtagInfo.get('challenge', {}).get('desc') 
+    resp['desc'] = hashtagInfo.get('shareMeta', {}).get('desc') 
     resp['videoCount'] = hashtagInfo.get('stats', {}).get('videoCount')
     resp['viewCount'] = hashtagInfo.get('stats', {}).get('viewCount')
     lst.append(resp)

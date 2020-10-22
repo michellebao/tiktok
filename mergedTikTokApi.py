@@ -7,7 +7,7 @@ from datetime import datetime
 import requests
 import os
 
-api = TikTokApi(debug=True, executablePath="/usr/lib/chromium-browser/chromium-browser")
+api = TikTokApi(debug=True, executablePath="/usr/lib/chromium-browser")
 pp = pprint.PrettyPrinter()
 
 #### Aggregate Functions ####
